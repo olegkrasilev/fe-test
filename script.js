@@ -29,7 +29,7 @@ const processFileAwaitVersion = async (url) => {
 const mainAwaitVersion = async () => {
     const rootUrl = 'https://fe.it-academy.by/Examples/words_tree/root.txt';
     const phrase = await processFileAwaitVersion(rootUrl);
-    document.getElementById('result').innerText = phrase;
+    document.getElementById('result-await').innerText = phrase;
 };
 
 mainAwaitVersion();
@@ -71,7 +71,7 @@ function processFileThenVersion(url) {
 function mainThenVersion() {
     const rootUrl = 'https://fe.it-academy.by/Examples/words_tree/root.txt';
     processFileThenVersion(rootUrl).then(function(phrase) {
-        document.getElementById('result').innerText = phrase;
+        document.getElementById('result-then').innerText = phrase;
     });
 }
 
