@@ -1,6 +1,6 @@
 // Использование `async/await` и стрелочных функций
 
-const fetchFile = async (url) => {
+const fetchFileAwaitVersion = async (url) => {
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('Network response was not ok');
@@ -11,14 +11,14 @@ const fetchFile = async (url) => {
     }
 };
 
-const processFile = async (url) => {
-    const content = await fetchFile(url);
+const processFileAwaitVersion = async (url) => {
+    const content = await fetchFileAwaitVersion(url);
     if (!content) return '';
 
     try {
         const json = JSON.parse(content);
         if (Array.isArray(json)) {
-            const phrases = await Promise.all(json.map(file => processFile(`https://fe.it-academy.by/Examples/words_tree/${file}`)));
+            const phrases = await Promise.all(json.map(file => processFileAwaitVersion(`https://fe.it-academy.by/Examples/words_tree/${file}`)));
             return phrases.join(' ');
         }
     } catch (e) {
@@ -26,17 +26,17 @@ const processFile = async (url) => {
     }
 };
 
-const main = async () => {
+const mainAwaitVersion = async () => {
     const rootUrl = 'https://fe.it-academy.by/Examples/words_tree/root.txt';
-    const phrase = await processFile(rootUrl);
+    const phrase = await processFileAwaitVersion(rootUrl);
     document.getElementById('result').innerText = phrase;
 };
 
-main();
+mainAwaitVersion();
 
 // Использование `then` и традиционных функций
 
-function fetchFile(url) {
+function fetchFileThenVersion(url) {
     return fetch(url)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
@@ -48,15 +48,15 @@ function fetchFile(url) {
         });
 }
 
-function processFile(url) {
-    return fetchFile(url).then(content => {
+function processFileThenVersion(url) {
+    return fetchFileThenVersion(url).then(content => {
         if (!content) return '';
 
         try {
             const json = JSON.parse(content);
             if (Array.isArray(json)) {
                 const promises = json.map(function(file) {
-                    return processFile(`https://fe.it-academy.by/Examples/words_tree/${file}`);
+                    return processFileThenVersion(`https://fe.it-academy.by/Examples/words_tree/${file}`);
                 });
                 return Promise.all(promises).then(function(phrases) {
                     return phrases.join(' ');
@@ -68,11 +68,11 @@ function processFile(url) {
     });
 }
 
-function main() {
+function mainThenVersion() {
     const rootUrl = 'https://fe.it-academy.by/Examples/words_tree/root.txt';
-    processFile(rootUrl).then(function(phrase) {
+    processFileThenVersion(rootUrl).then(function(phrase) {
         document.getElementById('result').innerText = phrase;
     });
 }
 
-main();
+mainThenVersion();
